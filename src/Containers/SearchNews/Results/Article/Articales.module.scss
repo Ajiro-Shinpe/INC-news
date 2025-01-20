@@ -1,0 +1,93 @@
+// SCSS Variables
+$primary-bg: #fff;
+$primary-color: #111;
+$secondary-text-color: #888;
+$button-bg: #111;           
+$button-hover-bg: #333;     
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;             
+$padding: 1rem;                  
+$font-family: 'Arial', sans-serif;
+
+// Article Card Styles
+.article-card {
+  background-color: $primary-bg;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  margin: 1rem;
+  height: 33rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .article-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid $secondary-text-color;
+  }
+
+  .article-content {
+    padding: $padding;
+    flex-grow: 1;
+
+    .article-title {
+      color: $primary-color;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .article-meta {
+      color: $secondary-text-color;
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    .article-description {
+      color: $primary-color;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .article-actions {
+    padding: 0.5rem 1rem;
+    text-align: center;
+
+    .read-more-btn {
+      background-color: $button-bg;
+      color: $primary-bg;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    
+      &:hover {
+        background-color: $button-hover-bg;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

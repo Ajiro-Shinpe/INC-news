@@ -1,0 +1,12 @@
+#top_header,
+#menu-appbar {
+  .MuiMenuItem-root {
+    color: #fff;
+  }
+  .primary-color {
+    color: hsl(197, 70%, 29%);
+  }
+  .MuiTypography-root {
+    color: var(--primary);
+  }
+}

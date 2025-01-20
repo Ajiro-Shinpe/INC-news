@@ -1,0 +1,85 @@
+// SCSS Variables for Black and White Theme
+$primary-bg: #fff;                // White background for profile card
+$primary-text-color: #111;         // Dark text for primary content
+$secondary-text-color: #888;      // Light gray text for secondary content
+$accent-color: #333;              // Darker color for accents
+$border-radius: 8px;              // Border radius for card and items
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Shadow for profile card
+$hover-bg: rgba(0, 0, 0, 0.05);   // Hover background effect
+$padding: 2rem;                   // Padding for the profile card and list items
+
+// Profile Container Styles
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0; // Background color of the page
+}
+
+// Profile Card Styles
+.profile-card {
+  background-color: $primary-bg; 
+  border-radius: $border-radius;
+  padding: $padding;
+  box-shadow: $box-shadow;
+  width: 100%;
+  max-width: 400px; // Limit the width of the profile card
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px); // Slight lift on hover for visual effect
+  }
+
+  .card-content {
+    text-align: center;
+
+    .profile-title {
+      color: $primary-text-color;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-subtitle {
+      color: $secondary-text-color;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .profile-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .list-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+        color: $primary-text-color;
+        text-decoration: none;
+        background-color: $primary-bg; // Default background color
+
+        &:hover {
+          background-color: $hover-bg; // Light hover effect
+        }
+
+        .list-icon {
+          margin-right: 1rem;
+          color: $accent-color; // Icon color for contrast
+        }
+
+        span {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

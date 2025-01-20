@@ -1,0 +1,86 @@
+// SCSS Variables
+$primary-bg: #fff;              
+$primary-color: #000;         
+$primary-border: #ccc;          
+$primary: #000;                 
+$primary-hover: #333;           
+$input-bg: #f4f4f4;            
+$helper-text-color: #e74c3c;     
+$option-bg: #fff;               
+$option-hover-bg: #f4f4f4;      
+$placeholder-color: #aaa;      
+$text-color: #000;             
+$secondary-text-color: #555;   
+
+html{
+  font-size: 62.5%;
+}
+// Box styling
+.box {
+    padding: 3rem 5rem;
+    background-color: $primary-bg;
+    color: $primary-color;
+
+    .grid-item {
+        margin-bottom: 1rem;
+
+        h2{
+            color: $primary;
+            font-size: 2rem;
+        }
+
+        .optional-text {
+            font-size: 1.3rem;
+            color: $secondary-text-color;
+            position: relative;
+            top: 40%;
+        }
+
+        .text-field,
+        .select-field,
+        .date-picker {
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid $primary-border;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background-color: $input-bg;
+            color: $text-color;
+
+            &::placeholder {
+                color: $placeholder-color;
+            }
+        }
+
+        .helper-text {
+            color: $helper-text-color;
+            font-size: 0.9rem;
+        }
+
+        option {
+            color: $text-color;
+            background-color: $option-bg;
+
+            &:hover {
+                background-color: $option-hover-bg;
+            }
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 1rem;
+            background-color: $primary;
+            color: $primary-bg;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $primary-hover;
+                color: $primary-bg;
+            }
+        }
+    }
+}

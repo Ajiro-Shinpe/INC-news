@@ -25,43 +25,49 @@ function Home() {
           <button className={styles.ctaButton}>Search Now</button>
         </Link>
       </div>
-
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Popular Categories</h2>
-        <p className={styles.sectionDescription}>
-          Explore the most popular topics in news, from politics and economy to
-          sports and entertainment. Whether you're interested in breaking news,
-          local news, or international news, we've got you covered.
-        </p>
+  <h2 className={styles.sectionTitle}>Top Stories</h2>
+  <p className={styles.sectionDescription}>
+    Catch up with the latest updates and headlines across the globe. From
+    politics and business to entertainment and technology, we’ve got you
+    covered.
+  </p>
+  <div className={styles.newsGrid}>
+    {[
+      {
+        title: "Massive Fire Breaks Out in Los Angeles",
+        description: "A massive fire erupted in downtown LA last night, causing significant damage to properties and prompting evacuations.",
+        image: "./assets/news-110x110-1.jpg",
+        link: "/news-search",
+      },
+      {
+        title: "New Virus Outbreak in China Raises Concerns",
+        description: "A novel virus has emerged in southern China, sparking health warnings and raising questions about global preparedness.",
+        image: "./assets/news-110x110-2.jpg",
+        link: "/news-search",
+      },
+      {
+        title: "Breakthrough Technology Unveiled in Silicon Valley",
+        description: "Tech giants have revealed cutting-edge AI innovations, set to revolutionize industries worldwide.",
+        image: "./assets/news-110x110-3.jpg",
+        link: "/news-search",
+      },
+    ].map((news, index) => (
+      <div className={styles.newsCard} key={index}>
+        <img
+          className={styles.newsImage}
+          src={news.image}
+          alt={news.title}
+        />
+        <h3 className={styles.newsTitle}>{news.title}</h3>
+        <p className={styles.newsDescription}>{news.description}</p>
+        <Link to={news.link} className={styles.readMoreLink}>
+          Read More
+        </Link>
       </div>
-
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Top Stories</h2>
-        <p className={styles.sectionDescription}>
-          Catch up with the latest updates and headlines across the globe. From
-          politics and business to entertainment and technology, we’ve got you
-          covered.
-        </p>
-        <div className={styles.newsGrid}>
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div className={styles.newsCard} key={index}>
-              <img
-                className={styles.newsImage}
-                src={`./assets/news-110x110-${index + 1}.jpg`}
-                alt={`News ${index + 1}`}
-              />
-              <h3 className={styles.newsTitle}>Headline {index + 1}</h3>
-              <p className={styles.newsDescription}>
-                A brief description of the news article. Stay informed with the
-                latest details.
-              </p>
-              <Link to={`/news/${index + 1}`} className={styles.readMoreLink}>
-                Read More
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
+    ))}
+  </div>
+</div>
 
       <div className={styles.ctaSection}>
         <h2 className={styles.ctaTitle}>Subscribe to Our Newsletter</h2>

@@ -1,0 +1,119 @@
+$primary-color: #111;
+$secondary-color: #fff;
+$background-color: #f8f9fa;
+$error-color: red;
+$success-bg-color: #d4edda;
+$success-text-color: #155724;
+$error-bg-color: #f8d7da;
+$error-text-color: #721c24;
+$input-border-color: #ccc;
+$shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$border-radius: 5px;
+$padding: 0.8rem;
+
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: $background-color;
+
+  .registerForm {
+    background-color: $secondary-color;
+    border-radius: $border-radius;
+    box-shadow: $shadow;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    text-align: center;
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .formgroup {
+      margin-bottom: 1rem;
+      text-align: left;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      input {
+        width: 100%;
+        padding: $padding;
+        border: 1px solid $input-border-color;
+        border-radius: $border-radius;
+        font-size: 1rem;
+
+        &.is-invalid {
+          border-color: $error-color;
+        }
+      }
+
+      .error {
+        color: $error-color;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+    }
+
+    .success-message,
+    .error-message {
+      padding: $padding;
+      border-radius: $border-radius;
+      margin-bottom: 1rem;
+      text-align: center;
+
+      &.success-message {
+        background-color: $success-bg-color;
+        color: $success-text-color;
+      }
+
+      &.error-message {
+        background-color: $error-bg-color;
+        color: $error-text-color;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: $padding;
+      border: none;
+      border-radius: $border-radius;
+      background-color: $primary-color;
+      color: $secondary-color;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+
+      a {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

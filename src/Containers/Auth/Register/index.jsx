@@ -19,6 +19,7 @@ import Loader from "../../../Components/Loader";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import LazyLoad from "react-lazyload";
+import styles from "./Register.module.scss";
 
 function Register() {
   const dispatch = useDispatch();
@@ -80,167 +81,78 @@ function Register() {
   }, [isAuthenticated, user]);
 
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>Register</title>
-      </Helmet>
-      <Grid container xs={12}>
-        <Grid
-          item
-          sx={{ display: { xs: "none", sm: "none", md: "block" } }}
-          xs={6}
-        >
-       
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            height="100%"
-            textAlign="center"
-            my={"auto"}
-          >
-            <img
-              width="500"
-              src={"/assets/image2.jpg"}
-            />
-          </Box> 
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-          <Container
-            maxWidth="sm"
-            sx={{
-              py: "17px",
-            }}
-          >
-            <Box pt={0} pb={0} px={4}>
-              <form noValidate onSubmit={handleSubmit}>
-                <Typography variant="h4" component="h1" align="center">
-                  Register
-                </Typography>
-                <br />
-                {isRegistered && (
-                  <Alert severity="success">
-                    You are registered, Please login!
-                  </Alert>
-                )}
+<HelmetProvider>
+  <Helmet>
+    <title>Register</title>
+  </Helmet>
+  <div className={styles.registerContainer}>
+    <div className={styles.registerForm}>
+      <h2>Register</h2>
+      {/* Display success or error messages */}
+      {isRegistered && (
+        <div className={styles.successmessage}>You are registered, Please login!</div>
+      )}
+      {error && <div className={styles.errormessage}>{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className={styles.formgroup}>
+          <label>Name</label>
+          <input
+  type="text"
+  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+  value={values.name}
+  onChange={(e) => setValues((prev) => ({ ...prev, name: e.target.value }))}
+/>
+{errors.name && touched.name && <div className="error">{errors.name}</div>}
 
-                <br />
 
-                {error && (
-                  <Typography color="error" align="center">
-                    {error}
-                  </Typography>
-                )}
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      fullWidth
-                      label="Name"
-                      id="name"
-                      value={values?.name}
-                      onChange={(e) =>
-                        setValues({ ...values, name: e.target.value })
-                      }
-                    />
-                    {touched?.name && errors?.name && (
-                      <FormHelperText error>{errors?.name}</FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      fullWidth
-                      type="email"
-                      label="Email address"
-                      id="emailAddress"
-                      autoComplete="email"
-                      value={values?.email}
-                      onChange={(e) =>
-                        setValues({ ...values, email: e.target.value })
-                      }
-                    />
-                    {touched?.email && errors?.email && (
-                      <FormHelperText error>{errors?.email}</FormHelperText>
-                    )}
-                  </Grid>
-
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      fullWidth
-                      type="password"
-                      label="Password"
-                      id="password"
-                      autoComplete="new-password"
-                      value={values?.password}
-                      onChange={(e) =>
-                        setValues({ ...values, password: e.target.value })
-                      }
-                    />
-                    {touched?.password && errors?.password && (
-                      <FormHelperText error>{errors?.password}</FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <TextField
-                      fullWidth
-                      type="password"
-                      label="Confirm Password"
-                      id="confirm_password"
-                      autoComplete="new-password"
-                      value={values?.password_confirm}
-                      onChange={(e) =>
-                        setValues({
-                          ...values,
-                          password_confirm: e.target.value,
-                        })
-                      }
-                    />
-                    {touched?.password_confirm && errors?.password_confirm && (
-                      <FormHelperText error>
-                        {errors?.password_confirm}
-                      </FormHelperText>
-                    )}
-                  </Grid>
-
-                  <Grid item xs={12} sm={12}>
-                    {isRegistering ? (
-                      <Button
-                        disabled
-                        fullWidth
-                        size="large"
-                        color="primary"
-                        variant="outlined"
-                      >
-                        <Loader />
-                      </Button>
-                    ) : (
-                      <Button
-                        type="submit"
-                        fullWidth
-                        size="large"
-                        color="primary"
-                        variant="outlined"
-                      >
-                        Register
-                      </Button>
-                    )}
-                  </Grid>
-                </Grid>
-                <div className="hr_line" mt={3} />
-                <Grid container mt={3} justifyContent="center">
-                  <Typography variant="body1" color="inherit">
-                    Already have an account?{" "}
-                    <Link to="/login" className="green_text">
-                      Login
-                    </Link>
-                  </Typography>
-                </Grid>
-              </form>
-            </Box>
-          </Container>
-        </Grid>
-      </Grid>
-    </HelmetProvider>
+        </div>
+        <div className={styles.formgroup}>
+          <label>Email</label>
+          <input
+            type="email"
+            className={`form-control ${errors.email ? "is-invalid" : ""}`}
+            value={values.email}
+            onChange={(e) => setValues((prev) => ({ ...prev, email: e.target.value }))}
+          />
+          {errors.email && <div className="error">{errors.email}</div>}
+        </div>
+        <div className={styles.formgroup}>
+          <label>Password</label>
+          <input
+            type="password"
+            className={`form-control ${errors.password ? "is-invalid" : ""}`}
+            value={values.password}
+            onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))}
+          />
+          {errors.password && <div className="error">{errors.password}</div>}
+        </div>
+        <div className={styles.formgroup}>
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            className={`form-control ${errors.password_confirm ? "is-invalid" : ""}`}
+            value={values.password_confirm}
+            onChange={(e) =>
+              setValues((prev) => ({
+                ...prev,
+                password_confirm: e.target.value,
+              }))
+            }
+          />
+          {errors.password_confirm && (
+            <div className="error">{errors.password_confirm}</div>
+          )}
+        </div>
+        <button type="submit" className="btn btn-primary" disabled={isRegistering}>
+          {isRegistering ? "Registering..." : "Register"}
+        </button>
+      </form>
+      <p>
+        Already have an account? <a href="/login">Login</a>
+      </p>
+    </div>
+  </div>
+</HelmetProvider>
   );
 }
 

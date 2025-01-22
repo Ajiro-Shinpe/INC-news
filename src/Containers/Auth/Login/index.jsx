@@ -1,7 +1,6 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../stores/Auth/actions";
-import useValidator from "../../../utils/useValidator";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -16,44 +15,78 @@ function Login() {
     (state) => state?.AuthReducer
   );
 
-  // Handle form submission
-  const onSubmit = () => {
-    const formData = new FormData();
-    formData.append("email", values.email);
-    formData.append("password", values.password);
-    setError(""); // Clear previous error
-    dispatch(login(formData)); // Dispatch the login action
-  };
+  const navigate = useNavigate();
 
-  // Form validation using custom hook and Yup schema
-  const { values, setValues, errors, handleSubmit, touched } = useValidator({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Invalid Email!").required("Email is required"),
-      password: Yup.string().required("Password is required."),
-    }),
-    onSubmit,
-  });
+  // Custom validation hook
+  function useValidator({ initialValues, validationSchema, onSubmit }) {
+    const [values, setValues] = useState(initialValues);
+    const [errors, setErrors] = useState({});
+    const [touched, setTouched] = useState({});
 
-  // Update error state based on loginError
+    const validate = () => {
+      try {
+        validationSchema.validateSync(values, { abortEarly: false });
+        setErrors({});
+        return true;
+      } catch (validationErrors) {
+        const errorMessages = validationErrors.inner.reduce((acc, error) => {
+          acc[error.path] = error.message;
+          return acc;
+        }, {});
+        setErrors(errorMessages);
+        return false;
+      }
+    };
+
+    const handleSubmit = (e) => {
+      if (e) e.preventDefault();
+      const isValid = validate();
+      if (isValid) {
+        onSubmit();
+      }
+    };
+
+    const handleBlur = (field) => {
+      setTouched((prev) => ({ ...prev, [field]: true }));
+    };
+
+    return {
+      values,
+      setValues,
+      errors,
+      touched,
+      handleSubmit,
+      handleBlur,
+    };
+  }
+
+  // Form validation logic
+  const { values, setValues, errors, handleSubmit, handleBlur, touched } =
+    useValidator({
+      initialValues: { email: "", password: "" },
+      validationSchema: Yup.object({
+        email: Yup.string().email("Invalid Email!").required("Email is required"),
+        password: Yup.string().required("Password is required."),
+      }),
+      onSubmit: () => {
+        const formData = new FormData();
+        formData.append("email", values.email);
+        formData.append("password", values.password);
+        setError("");
+        dispatch(login(formData));
+      },
+    });
+
   useEffect(() => {
     if (loginError) {
-      if (typeof loginError === "string") {
-        setError(loginError); // If the error is a string, set it directly
-      } else if (typeof loginError === "object" && loginError.email) {
-        setError(`Error: ${loginError.email}`); // Extract the error message from the object if it's an object
-      } else {
-        setError("An unknown error occurred");
-      }
+      setError(
+        typeof loginError === "string"
+          ? loginError
+          : "An unknown error occurred"
+      );
     }
   }, [loginError]);
 
-  const navigate = useNavigate();
-
-  // Redirect if authenticated
   useEffect(() => {
     if (isAuthenticated && user) {
       navigate("/news-search");
@@ -73,9 +106,11 @@ function Login() {
               <Loader />
             </div>
           )}
-          {/* Display login error if present */}
           {error && (
-            <div className="error-message">
+            <div
+              className="error-message"
+              style={{ color: "red", marginBottom: "1rem" }}
+            >
               {error}
             </div>
           )}
@@ -90,10 +125,12 @@ function Login() {
                 onChange={(e) =>
                   setValues((prev) => ({ ...prev, email: e.target.value }))
                 }
+                onBlur={() => handleBlur("email")}
               />
-              {/* Display form validation error for email */}
               {errors.email && touched.email && (
-                <span className="error">{errors.email}</span>
+                <span className="error" style={{ color: "red" }}>
+                  {errors.email}
+                </span>
               )}
             </div>
             <div className={styles.formgroup}>
@@ -106,10 +143,12 @@ function Login() {
                 onChange={(e) =>
                   setValues((prev) => ({ ...prev, password: e.target.value }))
                 }
+                onBlur={() => handleBlur("password")}
               />
-              {/* Display form validation error for password */}
               {errors.password && touched.password && (
-                <span className="error">{errors.password}</span>
+                <span className="error" style={{ color: "red" }}>
+                  {errors.password}
+                </span>
               )}
             </div>
             <button type="submit" disabled={isLoggingIn}>

@@ -8,29 +8,33 @@ $error-bg-color: #f8d7da;
 $error-text-color: #721c24;
 $input-border-color: #ccc;
 $shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-$border-radius: 5px;
+$border-radius: 8px;
 $padding: 0.8rem;
+
+body {
+  overflow-x: hidden;
+}
 
 .registerContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
   background-color: $background-color;
 
   .registerForm {
     background-color: $secondary-color;
     border-radius: $border-radius;
     box-shadow: $shadow;
-    width: 100%;
     max-width: 400px;
+    width: 100%;
     padding: 2rem;
     text-align: center;
 
     h2 {
       margin-bottom: 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+      color: $primary-color;
     }
 
     .formgroup {
@@ -50,7 +54,7 @@ $padding: 0.8rem;
         border-radius: $border-radius;
         font-size: 1rem;
 
-        &.is-invalid {
+        &.isInvalid {
           border-color: $error-color;
         }
       }
@@ -62,25 +66,24 @@ $padding: 0.8rem;
       }
     }
 
-    .success-message,
-    .error-message {
+    .message {
       padding: $padding;
       border-radius: $border-radius;
       margin-bottom: 1rem;
       text-align: center;
 
-      &.success-message {
+      &.success {
         background-color: $success-bg-color;
         color: $success-text-color;
       }
 
-      &.error-message {
+      &.error {
         background-color: $error-bg-color;
         color: $error-text-color;
       }
     }
 
-    button {
+    .submitBtn {
       width: 100%;
       padding: $padding;
       border: none;
@@ -90,6 +93,7 @@ $padding: 0.8rem;
       font-weight: bold;
       cursor: pointer;
       margin-top: 1rem;
+      transition: background-color 0.3s;
 
       &:hover {
         background-color: darken($primary-color, 10%);
@@ -101,11 +105,11 @@ $padding: 0.8rem;
       }
     }
 
-    p {
+    .SignUp {
       margin-top: 1rem;
       font-size: 0.9rem;
 
-      a {
+      link {
         color: $primary-color;
         text-decoration: none;
         font-weight: bold;

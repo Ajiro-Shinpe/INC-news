@@ -1,30 +1,19 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import {
-  Alert,
-  CardMedia,
-  FormHelperText,
-  Grid,
-  TextField,
-} from "@mui/material";
-import Button from "@mui/material/Button";
-import useValidator from "../../../utils/useValidator";
-import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../../stores/Auth/actions";
-import Loader from "../../../Components/Loader";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import LazyLoad from "react-lazyload";
+import useValidator from "../../../utils/useValidator";
+import * as Yup from "yup";
 import styles from "./Register.module.scss";
 
 function Register() {
   const dispatch = useDispatch();
   const { registerError, isRegistering, isRegistered, isAuthenticated, user } =
     useSelector((state) => state?.AuthReducer);
+
+  const [error, setError] = useState("");
 
   const onSubmit = () => {
     const formData = new FormData();
@@ -66,13 +55,6 @@ function Register() {
     onSubmit,
   });
 
-  const [error, setError] = useState("");
-  useEffect(() => {
-    if (typeof registerError === "object" && registerError !== undefined && registerError !== null) {
-      setError(Object.values(registerError).join(", "));
-    }
-  }, [registerError]);
-
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -80,79 +62,89 @@ function Register() {
     }
   }, [isAuthenticated, user]);
 
+  useEffect(() => {
+    if (typeof registerError === "object" && registerError !== null) {
+      setError(Object.values(registerError).join(", "));
+    }
+  }, [registerError]);
+
   return (
-<HelmetProvider>
-  <Helmet>
-    <title>Register</title>
-  </Helmet>
-  <div className={styles.registerContainer}>
-    <div className={styles.registerForm}>
-      <h2>Register</h2>
-      {/* Display success or error messages */}
-      {isRegistered && (
-        <div className={styles.successmessage}>You are registered, Please login!</div>
-      )}
-      {error && <div className={styles.errormessage}>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formgroup}>
-          <label>Name</label>
-          <input
-  type="text"
-  className={`form-control ${errors.name ? "is-invalid" : ""}`}
-  value={values.name}
-  onChange={(e) => setValues((prev) => ({ ...prev, name: e.target.value }))}
-/>
-{errors.name && touched.name && <div className="error">{errors.name}</div>}
+    <HelmetProvider>
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
+      <div className={styles.registerContainer}>
+          <div className={styles.registerForm}>
+            <h1>Register</h1>
+            {isRegistered && <p className={styles.success}>You are registered, Please login!</p>}
+            {error && <p className="error">{error}</p>}
 
+            <form onSubmit={handleSubmit}>
+              <div className={styles.formgroup}>
+                <label htmlFor="name">Name</label>
+                <br />
+                <input
+                  type="text"
+                  id="name"
+                  value={values.name}
+                  onChange={(e) => setValues({ ...values, name: e.target.value })}
+                />
+                {touched.name && errors.name && <small className="error">{errors.name}</small>}
+              </div>
 
-        </div>
-        <div className={styles.formgroup}>
-          <label>Email</label>
-          <input
-            type="email"
-            className={`form-control ${errors.email ? "is-invalid" : ""}`}
-            value={values.email}
-            onChange={(e) => setValues((prev) => ({ ...prev, email: e.target.value }))}
-          />
-          {errors.email && <div className="error">{errors.email}</div>}
-        </div>
-        <div className={styles.formgroup}>
-          <label>Password</label>
-          <input
-            type="password"
-            className={`form-control ${errors.password ? "is-invalid" : ""}`}
-            value={values.password}
-            onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))}
-          />
-          {errors.password && <div className="error">{errors.password}</div>}
-        </div>
-        <div className={styles.formgroup}>
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            className={`form-control ${errors.password_confirm ? "is-invalid" : ""}`}
-            value={values.password_confirm}
-            onChange={(e) =>
-              setValues((prev) => ({
-                ...prev,
-                password_confirm: e.target.value,
-              }))
-            }
-          />
-          {errors.password_confirm && (
-            <div className="error">{errors.password_confirm}</div>
-          )}
-        </div>
-        <button type="submit" className="btn btn-primary" disabled={isRegistering}>
-          {isRegistering ? "Registering..." : "Register"}
-        </button>
-      </form>
-      <p>
-        Already have an account? <a href="/login">Login</a>
-      </p>
-    </div>
-  </div>
-</HelmetProvider>
+              <div className={styles.formgroup}>
+                <label htmlFor="email">Email Address</label>
+                <br />
+                <input
+                  type="email"
+                  id="email"
+                  value={values.email}
+                  onChange={(e) => setValues({ ...values, email: e.target.value })}
+                />
+                {touched.email && errors.email && <small className="error">{errors.email}</small>}
+              </div>
+
+              <div className={styles.formgroup}>
+                <label htmlFor="password">Password</label>
+                <br />
+                <input
+                  type="password"
+                  id="password"
+                  value={values.password}
+                  onChange={(e) =>
+                    setValues({ ...values, password: e.target.value })
+                  }
+                />
+                {touched.password && errors.password && <small className="error">{errors.password}</small>}
+              </div>
+
+              <div className={styles.formgroup}>
+                <label htmlFor="password_confirm">Confirm Password</label>
+                <br />
+                <input
+                  type="password"
+                  id="password_confirm"
+                  value={values.password_confirm}
+                  onChange={(e) =>
+                    setValues({ ...values, password_confirm: e.target.value })
+                  }
+                />
+                {touched.password_confirm && errors.password_confirm && (
+                  <small className="error">{errors.password_confirm}</small>
+                )}
+              </div>
+
+              <button type="submit" className={styles.submitBtn}>
+                {isRegistering ? "Registering..." : "Register"}
+              </button>
+            </form>
+
+            <p className="SignUp">
+              Already have an account? <Link to="/login">Login</Link>
+            </p>
+          </div>
+      </div>
+    </HelmetProvider>
   );
 }
 

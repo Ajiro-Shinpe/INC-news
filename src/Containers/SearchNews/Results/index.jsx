@@ -1,69 +1,52 @@
-import { Grid, Pagination } from "@mui/material";
+import React from "react";
+import { useSelector } from "react-redux";
 import Loader from "../../../Components/Loader";
 import Article from "./Article";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
-import Container from "@mui/material/Container";
+import "./style.scss";
 function Results({ page, setPage }) {
   const { newsAPIArticles, isNewsApiArticlesFetching, newsAPIArticleError } =
     useSelector((state) => state?.NewsAPIReducer);
 
-  const handleChangePage = (event, value) => {
-    setPage(value);
+  const handleChangePage = (newPage) => {
+    setPage(newPage);
   };
 
+  const totalPages = 5; // Assuming there are 5 pages for simplicity
+
   return (
-    <>
-      <Container sx={{ my: 5 }}>
-        <Box
-          sx={{ flexGrow: 1, px: 5, pb: 3, background: "var(--primary-back)" }}
-        >
-          <Grid item xs={12}>
-            {isNewsApiArticlesFetching ? (
-              <Grid
-                container
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                mt={5}
-                pt={5}
-              >
-                <Loader />
-              </Grid>
-            ) : newsAPIArticles?.length > 0 ? (
-              <Grid container spacing={3}>
-                {newsAPIArticles.map((article, index) => (
-                  <Grid item xs={12} sm={12} md={6} lg={4} key={index}>
-                    <Article article={article} index={index} />
-                  </Grid>
-                ))}
-                <Box mt={3}>
-                  <Pagination
-                    count={5}
-                    page={page}
-                    color="primary"
-                    onChange={handleChangePage}
-                  />
-                </Box>
-              </Grid>
-            ) : (
-              <Typography
-                align="center"
-                sx={{ pt: 2, color: "var(--primary)" }}
-              >
-                No Data found
-              </Typography>
-            )}
-            {newsAPIArticleError && (
-              <Typography color="error" align="center">
-                {newsAPIArticleError}
-              </Typography>
-            )}
-          </Grid>
-        </Box>
-      </Container>
-    </>
+    <div className="results-container">
+      <div className="results-content">
+        {isNewsApiArticlesFetching ? (
+          <div className="loader-container">
+            <Loader />
+          </div>
+        ) : newsAPIArticles?.length > 0 ? (
+          <div className="results-grid">
+            {newsAPIArticles.map((article, index) => (
+              <div className="result-item" key={index}>
+                <Article article={article} index={index} />
+              </div>
+            ))}
+            <div className="pagination-container">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={`pagination-btn ${page === i + 1 ? "active" : ""}`}
+                  onClick={() => handleChangePage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="no-data">No Data found</p>
+        )}
+        {newsAPIArticleError && (
+          <p className="error-message">{newsAPIArticleError}</p>
+        )}
+      </div>
+    </div>
   );
 }
 

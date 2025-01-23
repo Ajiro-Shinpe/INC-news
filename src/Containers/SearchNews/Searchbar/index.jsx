@@ -84,7 +84,9 @@ function Searchbar({ page }) {
         <form noValidate>
           <div className="grid-container">
             <div className={styles["grid-item"]}>
+            <label htmlFor="query">Search query</label>
               <input
+              id="query"
                 type="text"
                 placeholder="Enter query for search"
                 className={styles["text-field"]}
@@ -100,6 +102,7 @@ function Searchbar({ page }) {
             </div>
 
             <div className={styles["grid-item"]}>
+            <label htmlFor="source-select">Source</label>
               <select
                 id="source-select"
                 className={styles["select-field"]}
@@ -120,11 +123,15 @@ function Searchbar({ page }) {
                 <span className={styles["helper-text"]}>{errors.source}</span>
               )}
             </div>
-
             <div className={styles["grid-item"]}>
+              <h4>Below are Optionals</h4>
+              </div>
+            <div className={styles["grid-item"]}>
+              <label htmlFor="date-from">Date from</label>
               <input
                 type="date"
                 id="date-from"
+                placeholder="date from"
                 className={styles["date-picker"]}
                 value={values.dateFrom}
                 onChange={(e) =>
@@ -133,6 +140,7 @@ function Searchbar({ page }) {
               />
             </div>
             <div className={styles["grid-item"]}>
+            <label htmlFor="date-to">Date to</label>
               <input
                 type="date"
                 id="date-to"
@@ -145,6 +153,7 @@ function Searchbar({ page }) {
             </div>
 
             <div className={styles["grid-item"]}>
+            <label htmlFor="category-select">Category</label>
                 <select
                   id="category-select"
                   className={styles['select-field']}

@@ -1,107 +1,69 @@
-// SCSS Variables
-$primary-color: #111;
-$secondary-color: #333;
-$background-color: #fafafa;
-$error-color: #f00;
-$button-hover-color: #0056b3;
-$card-bg-color: #fff;
-$text-color: #333;
-$border-color: #ccc;
-$border-focus-color: $primary-color;
-$font-size: 16px;
-$font-size-large: 24px;
-$padding-small: 12px;
-$padding-large: 20px;
-$border-radius: 4px;
-$box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-// Global Styles
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: $text-color;
-  margin: 0;
-  padding: 0;
+body{
+  overflow-x: hidden;
 }
-
 .container {
-  max-width: 600px;
-  margin: 0 auto;
   padding-top: 60px;
+  display: flex;
+  justify-content: center;
 }
 
 .card {
-  padding: $padding-large;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: $box-shadow;
-  background-color: $card-bg-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardContent {
+  padding: 20px;
 }
 
 .cardTitle {
-  margin-bottom: 20px;
-  font-size: $font-size-large;
+  font-size: 24px;
   font-weight: bold;
-  color: $secondary-color;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .formGroup {
   margin-bottom: 20px;
 }
 
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
 .selectField {
   width: 100%;
-  padding: $padding-small;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  background-color: $background-color;
-  font-size: $font-size;
-  color: $text-color;
-  transition: border 0.3s ease;
-
-  &:focus {
-    border-color: $border-focus-color;
-  }
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
-// Button Styling
-button {
-    padding: $padding-small $padding-large;
-    font-size: $font-size;
-    border-radius: $border-radius;
-    border: 1px solid #111; // Dark border to maintain black theme
-    background-color: #111; // Black background for the button
-    color: #fff; // White text
-    cursor: pointer;
-    transition: background-color 0.3s ease, border 0.3s ease;
-  
-    &:hover {
-      background-color: $button-hover-color; // Change to a hover effect color
-      border-color: $button-hover-color; // Optional: Adjust border color on hover
-    }
-  }
-  
-  // Save Button
-  .saveButton {
-    padding: 2rem 3rem;
-    background-color: #111; // Black background
-    border: 1px solid #111; // Dark border
-    color: #fff; // White text
-  
-    &:hover {
-      background-color: $button-hover-color; // Change to a lighter color on hover
-      border-color: $button-hover-color; // Optional: Change the border color as well
-    }
-  }
-  
-  // Loading Button
-  .loadingButton {
-    background-color: $primary-color; // Retain primary color for loading button
-    color: #fff; // White text
-    opacity: 0.7;
-    pointer-events: none; // Disable interaction when loading
-  }
-  
-.error-message {
-  color: $error-color;
-  font-size: 12px;
+
+.errorText {
+  color: red;
+  font-size: 14px;
   margin-top: 5px;
+}
+
+.loadingButton,
+.saveButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loadingButton[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

@@ -8,6 +8,9 @@ $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Shadow for profile card
 $hover-bg: rgba(0, 0, 0, 0.05);   // Hover background effect
 $padding: 2rem;                   // Padding for the profile card and list items
 
+body{
+  overflow-x: hidden;
+}
 // Profile Container Styles
 .profile-container {
   display: flex;
@@ -19,7 +22,7 @@ $padding: 2rem;                   // Padding for the profile card and list items
 
 // Profile Card Styles
 .profile-card {
-  background-color: $primary-bg; 
+  background-color: $primary-bg;
   border-radius: $border-radius;
   padding: $padding;
   box-shadow: $box-shadow;
@@ -78,6 +81,18 @@ $padding: 2rem;                   // Padding for the profile card and list items
         span {
           font-size: 1rem;
           font-weight: 500;
+        }
+      }
+
+      button {
+        background-color: #111;
+        color: #fff;
+        border: none;
+        padding: 1rem;
+        cursor: pointer;
+        width: 100%;
+        &:hover {
+          background-color: #333; // Slight darkening on hover
         }
       }
     }

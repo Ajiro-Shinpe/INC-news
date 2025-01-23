@@ -1,6 +1,4 @@
 import {Card, CardActions, CardContent, CardMedia, Grid} from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import LazyLoad from 'react-lazyload';
 import moment from "moment";
 import styles from './Articales.module.scss'; 
